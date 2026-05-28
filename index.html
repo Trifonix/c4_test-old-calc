@@ -156,6 +156,7 @@
             } else {
                 currentInput += number;
             }
+            console.log('Ввод цифры:', number, '→ текущее значение:', currentInput);
             updateDisplay();
         }
 
@@ -167,6 +168,7 @@
             
             if (!currentInput.includes('.')) {
                 currentInput += '.';
+                console.log('Ввод десятичной точки → текущее значение:', currentInput);
                 updateDisplay();
             }
         }
@@ -192,6 +194,7 @@
                 
                 // Проверяем на деление на ноль
                 if (expression.includes('/0') && !expression.includes('/0.')) {
+                    console.log('Результат:', expression, '→ Ошибка (деление на ноль)');
                     currentInput = 'Ошибка';
                     updateDisplay();
                     shouldResetDisplay = true;
@@ -201,14 +204,17 @@
                 const result = Function('"use strict"; return (' + expression + ')')();
                 
                 if (isNaN(result) || !isFinite(result)) {
+                    console.log('Результат:', expression, '→ Ошибка');
                     currentInput = 'Ошибка';
                 } else {
+                    console.log('Результат:', expression, '=', result);
                     currentInput = result.toString();
                 }
                 
                 updateDisplay();
                 shouldResetDisplay = true;
             } catch (error) {
+                console.log('Результат:', currentInput, '→ Ошибка');
                 currentInput = 'Ошибка';
                 updateDisplay();
                 shouldResetDisplay = true;
